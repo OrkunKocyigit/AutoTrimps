@@ -158,6 +158,23 @@ function testMapSpecialModController() {
     }
 }
 
+const checkIfMaZIsStuck = () => {
+  if (currentState.mazRunning) {
+    let mazSetting = checkMapAtZoneWorld(false);
+    if (Object.prototype.hasOwnProperty.call(mazSetting, "rx")) {
+      let mazIndex = game.options.menu.mapAtZone
+        .getSetZone()
+        .indexOf(mazSetting);
+      if (!triggeredMazProfiles.includes(mazIndex)) {
+        if (game.global.mapCounterGoal === 0) {
+          checkMapAtZoneWorld(true);
+        }
+        triggeredMazProfiles.push(mazIndex);
+      }
+    }
+  }
+};
+
 const getDoVoidCell = () => {
     let voidMapLevelSettingCell;
     if (game.global.challengeActive != "Daily") {
@@ -208,17 +225,6 @@ function autoMap() {
 
     // Play nice with maz
     if (currentState.mazRunning) {
-        // Check if maz is stuck
-        let mazSetting = checkMapAtZoneWorld(false);
-        if (Object.prototype.hasOwnProperty.call(mazSetting, "rx")) {
-            let mazIndex = game.options.menu.mapAtZone.getSetZone().indexOf(mazSetting);
-            if (!triggeredMazProfiles.includes(mazIndex)) {
-                if (game.global.mapCounterGoal === 0) {
-                    checkMapAtZoneWorld(true);
-                }
-                triggeredMazProfiles.push(mazIndex);
-            }
-        }
         enemyDamage = true;
         enemyHealth = true;
         shouldFarm = false;

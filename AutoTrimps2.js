@@ -180,6 +180,7 @@ function mainLoop() {
         currentState = getCurrentState();
 
         //Core
+        checkIfMaZIsStuck();
         if (getPageSetting('AutoMaps') > 0 && game.global.mapsUnlocked) autoMap();
         if (getPageSetting('showautomapstatus') == true) updateAutoMapsStatus();
         if (getPageSetting('ManualGather2') == 1) manualLabor2();
