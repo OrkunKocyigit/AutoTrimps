@@ -85,6 +85,12 @@ function updateAutoMapsStatus(get) {
 
     // State base status for off so we can see shit
     if (getPageSetting('AutoMaps') == 0 || currentState.mazRunning) {
+        // Check if maz is stuck
+        let mazSetting = checkMapAtZoneWorld(false);
+        if (Object.prototype.hasOwnProperty.call(mazSetting, "rx") && game.global.mapCounterGoal === 0) {
+            checkMapAtZoneWorld(true);
+        }
+        // Update status
         let text = "";
         if (currentState.advancingWorld) {
             text = "Advancing";
