@@ -172,6 +172,8 @@ const checkIfMaZIsStuck = () => {
         triggeredMazProfiles.push(mazIndex);
       }
     }
+  } else {
+      triggeredMazProfiles = [];
   }
 };
 
