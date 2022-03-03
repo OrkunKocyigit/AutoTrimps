@@ -645,7 +645,7 @@ function autoMap() {
         });
         for (var map in voidArraySorted) {
             var theMap = voidArraySorted[map];
-            doVoids = true;
+            doVoids = !(getPageSetting('novmsc2') == true && game.global.runningChallengeSquared);
             if (!restartVoidMap)
                 selectedMap = theMap.id;
             if (game.global.mapsActive && getCurrentMapObject().location == "Void" && game.global.challengeActive == "Nom" && getPageSetting('FarmWhenNomStacks7')) {
