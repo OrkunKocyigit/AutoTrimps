@@ -126,6 +126,7 @@ var currentWorldPortal = 0;
 var lastWorldPortal = 0;
 var aWholeNewPortal = false;
 let currentState = {};
+let triggeredMazProfiles = [];
 
 function mainLoop() {
     if (ATrunning == false) return;
@@ -151,7 +152,7 @@ function mainLoop() {
         if (getPageSetting('AutoEggs'))
             easterEggClicked();
         setTitle();
-
+        triggeredMazProfiles = [];
     }
 
     //Logic for Universe 1
