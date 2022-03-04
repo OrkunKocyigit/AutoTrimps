@@ -17,7 +17,7 @@ if (game.global.uberNature == "Wind" && getEmpowerment() != "Wind") {
 let windFormationZone = 0;
 try {
     windFormationZone = Number(getPageSetting("forceWindF"));
-    if (game.global.world > 60 && windFormationZone >= game.global.world && !game.global.runningChallengeSquared) {
+    if (game.global.world > 60 && game.global.world >= windFormationZone && !game.global.runningChallengeSquared) {
         if (game.global.uberNature == "Wind" && getEmpowerment() == "Wind" && !game.global.mapsActive) {
             setFormation(5);
             return;
