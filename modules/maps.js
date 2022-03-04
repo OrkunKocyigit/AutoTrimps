@@ -762,7 +762,8 @@ function autoMap() {
             }
         }
     } else if (game.global.preMapsActive) {
-        if (selectedMap == "world") {
+        var minFragmentsNeeded = Math.floor((((game.global.world / 150) * (Math.pow(1.14, game.global.world - 1))) * game.global.world * 2) * Math.pow((1.03 + (game.global.world / 50000)), game.global.world))*2;
+        if (selectedMap == "world" || game.resources.fragments.owned < minFragmentsNeeded) {
             mapsClicked();
         } else if (selectedMap == "create") {
             var $mapLevelInput = document.getElementById("mapLevelInput");
@@ -832,11 +833,16 @@ function autoMap() {
                 testMapSpecialModController();
             var maplvlpicked = parseInt($mapLevelInput.value) + (getPageSetting('AdvMapSpecialModifier') ? getExtraMapLevels() : 0);
             if (updateMapCost(true) > game.resources.fragments.owned) {
-                selectMap(game.global.mapsOwnedArray[highestMap].id);
-                debug("Can't afford the map we designed, #" + maplvlpicked, "maps", '*crying2');
-                debug("...selected our highest map instead # " + game.global.mapsOwnedArray[highestMap].id + " Level: " + game.global.mapsOwnedArray[highestMap].level, "maps", '*happy2');
-                runMap();
-                lastMapWeWereIn = getCurrentMapObject();
+		if (game.jobs.Explorer.owned > 0 || game.unlocks.imps.Flutimp == true) {
+                    selectMap(game.global.mapsOwnedArray[highestMap].id);
+                    debug("Can't afford the map we designed, #" + maplvlpicked, "maps", '*crying2');
+                    debug("...selected our highest map instead # " + game.global.mapsOwnedArray[highestMap].id + " Level: " + game.global.mapsOwnedArray[highestMap].level, "maps", '*happy2');
+                    runMap();
+                    lastMapWeWereIn = getCurrentMapObject();
+		}
+		else {
+		    selectedMap == "world";
+		}
             } else {
                 debug("Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
                 var result = buyMap();
